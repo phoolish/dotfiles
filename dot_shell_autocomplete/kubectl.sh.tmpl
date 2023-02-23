@@ -1,0 +1,5 @@
+{{- if eq .chezmoi.os "darwin" }}
+  if [ -f `brew --prefix`/etc/bash_completion.d/kubectl ]; then
+    kubectl completion bash > $(brew --prefix)/etc/bash_completion.d/kubectl
+  fi
+{{- end }}

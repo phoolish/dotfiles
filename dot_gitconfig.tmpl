@@ -1,0 +1,60 @@
+[core]
+{{- if eq .chezmoi.os "darwin" }}
+  pager = "/opt/homebrew/share/git-core/contrib/diff-highlight/diff-highlight | /usr/bin/less -RciqMSj5"
+{{- else }}
+  pager = "/usr/share/git/diff-highlight/diff-highlight | /usr/bin/less -RciqMSj5"
+{{- end }}
+  editor = nvim
+  excludesfile = ~/.gitignore_global
+
+[color "diff"]
+  commit = green
+  meta = yellow
+  frag = cyan
+  old = red
+  new = green
+  whitespace = red reverse
+
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
+
+[init]
+
+[color]
+  diff = auto
+  branch = auto
+  status = auto
+  ui = always
+
+[push]
+  default = current
+
+[alias]
+  uplay = "!git config user.name 'Lloyd P' && git config user.email 'stuff@whatafool.com'"
+  uwork = "!git config user.name 'Lloyd Philbrook' && git config user.email 'lloyd@tablexi.com'"
+  upush = "!git config user.name 'Lloyd Philbrook' && git config user.email 'lphilbrook@pushforwellness.com'"
+  cleanup = "!git remote update --prune && git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
+  rhead = "!git remote set-head origin"
+  # Alias checkout so that we can use better autocompletion of branches
+  # https://gist.github.com/mmrko/b3ec6da9bea172cdb6bd83bdf95ee817
+  checkoutr = "!git checkout"
+
+[github]
+  user = phoolish
+
+[merge]
+  tool = vimdiff
+[diff]
+  tool = prompt
+[mergetool]
+  path = nvim
+
+[format]
+  pretty=%C(yellow)%h %Cgreen%an%Creset %s %C(red)(%cr)%Creset
+
+[pull]
+  rebase = false
+

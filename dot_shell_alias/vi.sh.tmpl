@@ -1,0 +1,7 @@
+{{- if eq .chezmoi.os "darwin" }}
+  alias vi="$(brew --prefix)/bin/nvim"
+  alias vim="$(brew --prefix)/bin/nvim"
+{{- else }}
+  alias vi="/usr/bin/nvim"
+  alias vim="/usr/bin/nvim"
+{{- end }}

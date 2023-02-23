@@ -1,0 +1,2 @@
+# https://github.com/asdf-vm/asdf-ruby#migrating-from-another-ruby-version-manager
+legacy_version_file = yes

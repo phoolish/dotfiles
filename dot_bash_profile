@@ -1,0 +1,16 @@
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+  . ~/.bashrc
+fi
+
+[[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
+
+command -v direnv  >/dev/null 2>&1 && eval "$(direnv hook bash)"
+
+if [ -f /opt/homebrew/bin/brew ]; then
+  eval $(/opt/homebrew/bin/brew shellenv)
+fi
+
+for f in ~/.shell/*; do source $f; done
+for f in ~/.shell_*/*; do source $f; done
+
