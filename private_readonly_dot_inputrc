@@ -1,0 +1,7 @@
+set completion-ignore-case on
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+# Add ALT+Forward/Backward by one word to iTerm2
+# http://superuser.com/a/357394
+"\e[1;5D": backward-word
+"\e[1;5C": forward-word
