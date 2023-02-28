@@ -33,7 +33,7 @@
   default = current
 
 [alias]
-  cleanup = "!git remote update --prune && git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
+  cleanup = "!git remote prune origin && git branch -v | grep '\\[gone\\]' | awk '{print $1}' | xargs git branch -D"
   rhead = "!git remote set-head origin"
   # Alias checkout so that we can use better autocompletion of branches
   # https://gist.github.com/mmrko/b3ec6da9bea172cdb6bd83bdf95ee817
