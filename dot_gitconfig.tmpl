@@ -33,9 +33,6 @@
   default = current
 
 [alias]
-  uplay = "!git config user.name 'Lloyd P' && git config user.email 'stuff@whatafool.com'"
-  uwork = "!git config user.name 'Lloyd Philbrook' && git config user.email 'lloyd@tablexi.com'"
-  upush = "!git config user.name 'Lloyd Philbrook' && git config user.email 'lphilbrook@pushforwellness.com'"
   cleanup = "!git remote update --prune && git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d"
   rhead = "!git remote set-head origin"
   # Alias checkout so that we can use better autocompletion of branches
