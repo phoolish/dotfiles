@@ -1,0 +1,9 @@
+#! /bin/bash
+# Install packages after
+
+{{- if eq .chezmoi.os "darwin" }}
+# MacOS build version: {{ output "sw_vers" "--buildVersion" }}
+# Brewfile hash: {{ include "dot_Brewfile" | sha256sum }}
+
+brew bundle install
+{{- end }}

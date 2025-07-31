@@ -1,0 +1,199 @@
+tap "github/gh"
+tap "hpedrorodrigues/tools"
+tap "kreuzwerker/taps"
+# C parser in Python
+brew "pycparser"
+# C Foreign Function Interface for Python
+brew "cffi"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@3"
+# NaCl networking and cryptography library
+brew "libsodium"
+# Library for command-line editing
+brew "readline"
+# Command-line interface for SQLite
+brew "sqlite"
+# General-purpose data compression with high compression ratio
+brew "xz"
+# Library for manipulating PNG images
+brew "libpng"
+# New file format for still image compression
+brew "jpeg-xl"
+# Codec library for encoding and decoding AV1 video streams
+brew "aom"
+# Automatic configure script builder
+brew "autoconf"
+# Tool for generating GNU Standards-compliant Makefiles
+brew "automake"
+# GNU multiple precision arithmetic library
+brew "gmp"
+# GNU File, Shell, and Text utilities
+brew "coreutils"
+# Extendable version manager with support for Ruby, Node.js, Erlang & more
+brew "asdf"
+# Programmable completion for Bash 3.2
+brew "bash-completion"
+# Parser generator
+brew "bison"
+# Software library to render fonts
+brew "freetype"
+# GNU internationalization (i18n) and localization (l10n) library
+brew "gettext"
+# Vector graphics library with cross-device output support
+brew "cairo"
+# Reimplementation of ctags(1)
+brew "ctags"
+# Get a file from an HTTP, HTTPS or FTP server
+brew "curl"
+# Load/unload environment variables based on $PWD
+brew "direnv"
+# Text processing system for reStructuredText
+brew "docutils"
+# Asynchronous event library
+brew "libevent"
+# Library to load and enumerate PKCS#11 modules
+brew "p11-kit"
+# Validating, recursive, caching DNS resolver
+brew "unbound"
+# GNU Transport Layer Security (TLS) Library
+brew "gnutls"
+# OpenType text shaping engine
+brew "harfbuzz"
+# OCR (Optical Character Recognition) engine
+brew "tesseract"
+# Play, record, convert, and stream audio and video
+brew "ffmpeg"
+# XSL-FO print formatter for making PDF or PS documents
+brew "fop"
+# GNU compiler collection
+brew "gcc"
+# Library for encoding and decoding .avif files
+brew "libavif"
+# Graphics library to dynamically manipulate images
+brew "gd"
+# GitHub command-line tool
+brew "gh"
+# Distributed revision control system
+brew "git"
+# GNU Pretty Good Privacy (PGP) package
+brew "gnupg"
+# Open source programming language to build simple/reliable/efficient software
+brew "go"
+# Database of common MIME types
+brew "shared-mime-info"
+# ISO/IEC 23008-12:2017 HEIF file format decoder and encoder
+brew "libheif"
+# Tools and libraries to manipulate images in many formats
+brew "imagemagick"
+# Image manipulation library
+brew "jpeg"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
+# Easy building and installing of Erlang/OTP instances
+brew "kerl"
+# Network authentication protocol
+brew "krb5"
+# Kubernetes prompt info for bash and zsh
+brew "kube-ps1"
+# Tool that can switch between kubectl contexts easily and create aliases
+brew "kubectx"
+# BSD-style licensed readline alternative
+brew "libedit"
+# Conversion library
+brew "libiconv"
+# C XSLT library for GNOME
+brew "libxslt"
+# C library for reading, creating, and modifying zip archives
+brew "libzip"
+# Drop-in replacement for MySQL
+brew "mariadb"
+# Replacement for the old crypt package and crypt(1) command
+brew "mcrypt"
+# Remote terminal application
+brew "mosh"
+# Multiple Repository management tool
+brew "mr"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@1.1"
+# ISO-C API and CLI for generating UUIDs
+brew "ossp-uuid"
+# Shell command parallelization utility
+brew "parallel"
+# General-purpose scripting language
+brew "php"
+# General-purpose scripting language
+brew "php@8.1"
+# Package compiler and linker metadata toolkit
+brew "pkgconf"
+# Tool for managing OCI containers and pods
+brew "podman"
+# Alternative to docker-compose using podman
+brew "podman-compose"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.11"
+# Generic machine emulator and virtualizer
+brew "qemu"
+# Generate C-based recognizers from regular expressions
+brew "re2c"
+# Add a public key to a remote machine's authorized_keys file
+brew "ssh-copy-id"
+# Tool Command Language
+brew "tcl-tk@8"
+# User interface to the TELNET protocol
+brew "telnet"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Executes a program periodically, showing output fullscreen
+brew "watch"
+# Internet file retriever
+brew "wget"
+# Process YAML, JSON, XML, CSV and properties documents from the CLI
+brew "yq"
+# General-purpose lossless data-compression library
+brew "zlib"
+# CLI to support with downloading and compiling terraform providers for Mac with M1 chip.
+brew "kreuzwerker/taps/m1-terraform-provider-helper"
+# Password manager that keeps all passwords secure behind one password
+cask "1password", args: { appdir: "/Applications" }
+# Command-line interface for 1Password
+cask "1password-cli"
+# Android SDK component
+cask "android-platform-tools"
+# Web browser focusing on privacy
+cask "brave-browser", args: { appdir: "/Applications" }
+# Automated testing of webapps for Google Chrome
+cask "chromedriver", args: { appdir: "/Applications" }
+# Command-line utility for managing macOS dock items
+cask "dockutil"
+# Web browser
+cask "firefox", args: { appdir: "/Applications" }
+# Hosts file editor/manager
+cask "gas-mask", args: { appdir: "/Applications" }
+# Web browser
+cask "google-chrome", args: { appdir: "/Applications" }
+# Open-source video transcoder
+cask "handbrake-app", args: { appdir: "/Applications" }
+# Meet, chat, call, and collaborate in just one place
+cask "microsoft-teams"
+# Utility to move and zoom windows—on one display
+cask "moom"
+# Security software for business
+cask "nordlayer", args: { appdir: "/Applications" }
+# Calendar for professionals and teams
+cask "notion-calendar", args: { appdir: "/Applications" }
+# Team communication and collaboration software
+cask "slack", args: { appdir: "/Applications" }
+# Music streaming service
+cask "spotify", args: { appdir: "/Applications" }
+# Control your data usage on slow or expensive networks
+cask "tripmode", args: { appdir: "/Applications" }
+# Open-source code editor
+cask "visual-studio-code", args: { appdir: "/Applications" }
+# Multimedia player
+cask "vlc", args: { appdir: "/Applications" }
+# Open-source version of the X.Org X Window System
+cask "xquartz"
+# Video communication and virtual meeting platform
+cask "zoom"
