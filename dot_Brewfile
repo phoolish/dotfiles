@@ -178,7 +178,6 @@ cask "handbrake-app", args: { appdir: "/Applications" }
 # Meet, chat, call, and collaborate in just one place
 cask "microsoft-teams"
 # Utility to move and zoom windows—on one display
-cask "moom"
 # Security software for business
 cask "nordlayer", args: { appdir: "/Applications" }
 # Calendar for professionals and teams
