@@ -1,5 +1,5 @@
-{{- if eq .chezmoi.os "darwin" }}
-  if [ -f `brew --prefix`/etc/bash_completion ]; then
-    . `brew --prefix`/etc/bash_completion
-  fi
+{{- if lookPath "brew" }}
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+  . `brew --prefix`/etc/bash_completion
+fi
 {{- end }}
