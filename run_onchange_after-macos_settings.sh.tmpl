@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Based on https://github.com/mathiasbynens/dotfiles/blob/master/.macos
 
+{{- if eq .chezmoi.os "darwin" }}
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'
@@ -694,3 +695,4 @@ for app in "Activity Monitor" \
 	killall "${app}" &> /dev/null
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
+{{- end }}
