@@ -1,5 +1,3 @@
-{{- if lookPath "brew" }}
-if [ -f "$(brew --prefix asdf)/etc/bash_completion.d/asdf.bash" ]; then
-  source $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash
-fi
+{{- if lookPath "asdf" }}
+. <(asdf completion bash)
 {{- end }}
