@@ -5,5 +5,5 @@
 # MacOS build version: {{ output "sw_vers" "--buildVersion" }}
 # Brewfile hash: {{ include "dot_Brewfile" | sha256sum }}
 
-brew bundle install
+brew bundle install --file ~/.Brewfile
 {{- end }}
