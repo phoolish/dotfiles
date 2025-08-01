@@ -107,16 +107,12 @@ brew "libxslt"
 brew "libzip"
 # Drop-in replacement for MySQL
 brew "mariadb"
-# Replacement for the old crypt package and crypt(1) command
-brew "mcrypt"
 # Remote terminal application
 brew "mosh"
 # Multiple Repository management tool
 brew "mr"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
-# Cryptography and SSL/TLS Toolkit
-brew "openssl@1.1"
 # ISO-C API and CLI for generating UUIDs
 brew "ossp-uuid"
 # Shell command parallelization utility
@@ -165,8 +161,6 @@ cask "android-platform-tools"
 cask "brave-browser", args: { appdir: "/Applications" }
 # Automated testing of webapps for Google Chrome
 cask "chromedriver", args: { appdir: "/Applications" }
-# Command-line utility for managing macOS dock items
-cask "dockutil"
 # Web browser
 cask "firefox", args: { appdir: "/Applications" }
 # Hosts file editor/manager
@@ -175,11 +169,6 @@ cask "gas-mask", args: { appdir: "/Applications" }
 cask "google-chrome", args: { appdir: "/Applications" }
 # Open-source video transcoder
 cask "handbrake-app", args: { appdir: "/Applications" }
-# Meet, chat, call, and collaborate in just one place
-cask "microsoft-teams"
-# Utility to move and zoom windows—on one display
-# Security software for business
-cask "nordlayer", args: { appdir: "/Applications" }
 # Calendar for professionals and teams
 cask "notion-calendar", args: { appdir: "/Applications" }
 # Team communication and collaboration software
