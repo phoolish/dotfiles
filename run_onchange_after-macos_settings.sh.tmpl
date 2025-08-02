@@ -652,7 +652,8 @@ for app in "Activity Monitor" \
 	"Photos" \
 	"SystemUIServer" \
 	"iCal"; do
-	killall "${app}" &> /dev/null
+	killall "${app}" 2> /dev/null || true
 done
+
 echo "Done. Note that some of these changes require a logout/restart to take effect."
 {{- end }}
