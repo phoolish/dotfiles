@@ -191,12 +191,16 @@ sudo systemsetup -setcomputersleep Off > /dev/null
 #    power failure.
 sudo pmset -a hibernatemode 0
 
-# Remove the sleep image file to save disk space
-sudo rm /private/var/vm/sleepimage
-# Create a zero-byte file instead…
-sudo touch /private/var/vm/sleepimage
-# …and make sure it can’t be rewritten
-sudo chflags uchg /private/var/vm/sleepimage
+SLEEPIMAGE="/private/var/vm/sleepimage"
+# Checks if SLEEPIMAGE exists and has a size greater than 0.
+if [[ -s "$SLEEPIMAGE" ]]; then
+	# Remove the sleep image file to save disk space
+	sudo rm "$SLEEPIMAGE"
+	# Create a zero-byte file instead…
+	sudo touch "$SLEEPIMAGE"
+	# …and make sure it can’t be rewritten
+	sudo chflags uchg "$SLEEPIMAGE"
+fi
 
 ###############################################################################
 # Screen                                                                      #
