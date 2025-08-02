@@ -1,52 +1,52 @@
 tap "github/gh"
 tap "hpedrorodrigues/tools"
 tap "kreuzwerker/taps"
-# C parser in Python
-brew "pycparser"
-# C Foreign Function Interface for Python
-brew "cffi"
-# Cryptography and SSL/TLS Toolkit
-brew "openssl@3"
-# NaCl networking and cryptography library
-brew "libsodium"
-# Library for command-line editing
-brew "readline"
-# Command-line interface for SQLite
-brew "sqlite"
-# General-purpose data compression with high compression ratio
-brew "xz"
 # Library for manipulating PNG images
 brew "libpng"
+# General-purpose data compression with high compression ratio
+brew "xz"
 # New file format for still image compression
 brew "jpeg-xl"
 # Codec library for encoding and decoding AV1 video streams
 brew "aom"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@3"
+# GNU internationalization (i18n) and localization (l10n) library
+brew "gettext"
+# Distributed revision control system
+brew "git"
+# Extendable version manager with support for Ruby, Node.js, Erlang & more
+brew "asdf"
 # Automatic configure script builder
 brew "autoconf"
 # Tool for generating GNU Standards-compliant Makefiles
 brew "automake"
-# GNU multiple precision arithmetic library
-brew "gmp"
-# GNU File, Shell, and Text utilities
-brew "coreutils"
-# Extendable version manager with support for Ruby, Node.js, Erlang & more
-brew "asdf"
+# Library for command-line editing
+brew "readline"
 # Programmable completion for Bash 3.2
 brew "bash-completion"
 # Parser generator
 brew "bison"
 # Software library to render fonts
 brew "freetype"
-# GNU internationalization (i18n) and localization (l10n) library
-brew "gettext"
 # Vector graphics library with cross-device output support
 brew "cairo"
+# C parser in Python
+brew "pycparser"
+# C Foreign Function Interface for Python
+brew "cffi"
+# GNU multiple precision arithmetic library
+brew "gmp"
+# GNU File, Shell, and Text utilities
+brew "coreutils"
 # Reimplementation of ctags(1)
 brew "ctags"
 # Get a file from an HTTP, HTTPS or FTP server
 brew "curl"
 # Load/unload environment variables based on $PWD
 brew "direnv"
+# Command-line interface for SQLite
+brew "sqlite"
 # Text processing system for reStructuredText
 brew "docutils"
 # Asynchronous event library
@@ -59,6 +59,8 @@ brew "unbound"
 brew "gnutls"
 # OpenType text shaping engine
 brew "harfbuzz"
+# NaCl networking and cryptography library
+brew "libsodium"
 # OCR (Optical Character Recognition) engine
 brew "tesseract"
 # Play, record, convert, and stream audio and video
@@ -73,8 +75,6 @@ brew "libavif"
 brew "gd"
 # GitHub command-line tool
 brew "gh"
-# Distributed revision control system
-brew "git"
 # GNU Pretty Good Privacy (PGP) package
 brew "gnupg"
 # Open source programming language to build simple/reliable/efficient software
@@ -117,8 +117,6 @@ brew "neovim"
 brew "ossp-uuid"
 # Shell command parallelization utility
 brew "parallel"
-# General-purpose scripting language
-brew "php"
 # General-purpose scripting language
 brew "php@8.1"
 # Package compiler and linker metadata toolkit
@@ -169,8 +167,14 @@ cask "gas-mask", args: { appdir: "/Applications" }
 cask "google-chrome", args: { appdir: "/Applications" }
 # Open-source video transcoder
 cask "handbrake-app", args: { appdir: "/Applications" }
+# Provides updates to various Microsoft products
+cask "microsoft-auto-update"
+# Meet, chat, call, and collaborate in just one place
+cask "microsoft-teams"
 # Calendar for professionals and teams
 cask "notion-calendar", args: { appdir: "/Applications" }
+# Move and resize windows using keyboard shortcuts or snap areas
+cask "rectangle"
 # Team communication and collaboration software
 cask "slack", args: { appdir: "/Applications" }
 # Music streaming service
@@ -185,4 +189,3 @@ cask "vlc", args: { appdir: "/Applications" }
 cask "xquartz"
 # Video communication and virtual meeting platform
 cask "zoom"
-cask "rectangle"
