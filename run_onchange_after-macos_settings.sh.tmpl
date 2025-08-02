@@ -206,7 +206,9 @@ fi
 # Screen                                                                      #
 ###############################################################################
 
+# Start screensaver after 60 seconds
 # Require password 5 minutes after sleep or screen saver begins
+defaults write com.apple.screensaver idleTime -int 60
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 300
 
