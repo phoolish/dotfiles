@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 mac_install() {
   xcode-select --install || echo "XCode already installed"
