@@ -5,11 +5,5 @@ fi
 
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
 
-command -v direnv  >/dev/null 2>&1 && eval "$(direnv hook bash)"
-
-{{- if lookPath "brew" }}
-eval $(/opt/homebrew/bin/brew shellenv)
-{{- end }}
-
 for f in ~/.shell/*; do source $f; done
 for f in ~/.shell_*/*; do source $f; done
