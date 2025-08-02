@@ -2,7 +2,12 @@
 
 set -e
 
+[ -f ~/.chezmoi-setup ] && exit 0
+
 mac_install() {
+  # Update default shell to /bin/bash
+  chsh -s /bin/bash
+
   xcode-select --install || echo "XCode already installed"
 
   if which brew; then
@@ -31,3 +36,5 @@ Darwin*)
   exit 1
   ;;
 esac
+
+echo "# This file was created while setting up this computer using chezmoi" > ~/.chezmoi-setup
