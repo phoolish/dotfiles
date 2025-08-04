@@ -10,6 +10,9 @@ mac_install() {
 
   xcode-select --install || echo "XCode already installed"
 
+  # Rosetta 2 enables a Mac with Apple silicon to use apps that were built for a Mac with an Intel processor.
+  sudo softwareupdate --install-rosetta --agree-to-license
+
   if which brew; then
     echo 'Homebrew is already installed'
   else
