@@ -14,22 +14,18 @@ To manually specify the socket path, add to ~/.config/chezmoi/chezmoi.toml:
 [data]
   onePasswordSocket = "/path/to/your/agent.sock"
 */ -}}
-{{- if eq .chezmoi.os "darwin" }}
-{{-   $onePasswordSocket := "" }}
-{{-   /* Try to find the 1Password SSH agent socket dynamically */}}
-{{-   $findCmd := printf "find '%s/Library/Group Containers' -maxdepth 1 -type d -name '*.com.1password' 2>/dev/null | head -1" .chezmoi.homeDir }}
-{{-   $onePasswordDir := output "sh" "-c" $findCmd | trim }}
-{{-   if $onePasswordDir }}
-{{-     $socketPath := printf "%s/t/agent.sock" $onePasswordDir }}
-{{-     /* Verify the socket file exists */}}
-{{-     if stat $socketPath }}
-{{-       $onePasswordSocket = $socketPath }}
-{{-     end }}
-{{-   end }}
-{{-   /* Allow override via chezmoi data */}}
-{{-   if hasKey . "onePasswordSocket" }}
-{{-     $onePasswordSocket = .onePasswordSocket }}
-{{-   end }}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $onePasswordSocket := "" -}}
+{{-   $onePasswordDir := output "sh" "-c" (printf "find \"%s/Library/Group Containers\" -maxdepth 1 -type d -name '*.com.1password' 2>/dev/null | head -1" .chezmoi.homeDir) | trim -}}
+{{-   if $onePasswordDir -}}
+{{-     $socketPath := printf "%s/t/agent.sock" $onePasswordDir -}}
+{{-     if stat $socketPath -}}
+{{-       $onePasswordSocket = $socketPath -}}
+{{-     end -}}
+{{-   end -}}
+{{-   if hasKey . "onePasswordSocket" -}}
+{{-     $onePasswordSocket = .onePasswordSocket -}}
+{{-   end -}}
 Host *
 {{-   if $onePasswordSocket }}
 	IdentityAgent "{{ $onePasswordSocket }}"
