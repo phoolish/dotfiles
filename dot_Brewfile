@@ -17,6 +17,8 @@ brew "gettext"
 brew "git"
 # Extendable version manager with support for Ruby, Node.js, Erlang & more
 brew "asdf"
+# Thin wrapper around the aws command-line interface for use with LocalStack
+brew "awscli-local"
 # Automatic configure script builder
 brew "autoconf"
 # Tool for generating GNU Standards-compliant Makefiles
@@ -155,6 +157,8 @@ cask "1password", args: { appdir: "/Applications" }
 cask "1password-cli"
 # Android SDK component
 cask "android-platform-tools"
+# Hack Nerd Font
+cask "font-hack-nerd-font"
 # Web browser focusing on privacy
 cask "brave-browser", args: { appdir: "/Applications" }
 # Automated testing of webapps for Google Chrome
