@@ -1,0 +1,84 @@
+# Starship prompt configuration
+# Replicates the bash-git-prompt + kube-ps1 + AWS setup
+
+# Format string - defines the order of modules
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$aws\
+$kubernetes\
+$line_break\
+$character"""
+
+# AWS module - shows profile when set
+[aws]
+format = ' [\($symbol$profile\)]($style)'
+symbol = "AWS:"
+style = "cyan"
+disabled = false
+
+# Kubernetes module - shows context and namespace
+[kubernetes]
+format = ' [(\\($symbol$context/$namespace\\))]($style)'
+symbol = ""
+style = "cyan"
+disabled = false
+# Only show when kubectl context is set
+detect_files = ['k8s']
+detect_extensions = ['yaml', 'yml']
+detect_folders = []
+
+# Git branch
+[git_branch]
+symbol = ""
+format = "[$symbol$branch(:$remote_branch)]($style) "
+style = "bold purple"
+
+# Git status - replicate bash-git-prompt behavior
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "bold red"
+conflicted = "="
+ahead = "↑${count}"
+behind = "↓${count}"
+diverged = "↕↑${ahead_count}↓${behind_count}"
+untracked = "?"
+stashed = "$"
+modified = "!"
+staged = "+"
+renamed = "»"
+deleted = "✘"
+
+# Git state (rebase, merge, etc.)
+[git_state]
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
+style = "bold yellow"
+
+# Directory
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+style = "bold cyan"
+format = "[$path]($style)[$read_only]($read_only_style) "
+
+# Character (prompt symbol)
+[character]
+success_symbol = "[➜](bold green)"
+error_symbol = "[➜](bold red)"
+
+# Username (only show when SSH)
+[username]
+show_always = false
+style_user = "bold yellow"
+format = "[$user]($style) "
+
+# Hostname (only show when SSH)
+[hostname]
+ssh_only = true
+format = "on [$hostname]($style) "
+style = "bold green"
