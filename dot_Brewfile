@@ -93,8 +93,6 @@ brew "jq"
 brew "kerl"
 # Network authentication protocol
 brew "krb5"
-# Kubernetes prompt info for bash and zsh
-brew "kube-ps1"
 # Tool that can switch between kubectl contexts easily and create aliases
 brew "kubectx"
 # BSD-style licensed readline alternative
@@ -133,6 +131,8 @@ brew "qemu"
 brew "re2c"
 # Add a public key to a remote machine's authorized_keys file
 brew "ssh-copy-id"
+# Cross-shell prompt for astronauts
+brew "starship"
 # Tool Command Language
 brew "tcl-tk@8"
 # User interface to the TELNET protocol
