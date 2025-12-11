@@ -1,0 +1,45 @@
+{{- /*
+SSH Configuration Template for 1Password SSH Agent
+==================================================
+This template automatically detects the 1Password SSH agent socket path on macOS.
+The socket path contains a Team ID that varies between installations.
+
+Detection logic:
+1. Searches for *.com.1password directory in ~/Library/Group Containers/
+2. Verifies the agent.sock file exists
+3. Falls back to standard ssh-agent if not found
+
+Override:
+To manually specify the socket path, add to ~/.config/chezmoi/chezmoi.toml:
+[data]
+  onePasswordSocket = "/path/to/your/agent.sock"
+*/ -}}
+{{- if eq .chezmoi.os "darwin" }}
+{{-   $onePasswordSocket := "" }}
+{{-   /* Try to find the 1Password SSH agent socket dynamically */}}
+{{-   if (stat (joinPath .chezmoi.homeDir "Library/Group Containers")) }}
+{{-     $groupContainers := joinPath .chezmoi.homeDir "Library/Group Containers" }}
+{{-     /* Find the directory that matches *.com.1password */}}
+{{-     $findCmd := printf "find '%s' -maxdepth 1 -type d -name '*.com.1password' 2>/dev/null | head -1" $groupContainers }}
+{{-     $onePasswordDir := output "sh" "-c" $findCmd | trim }}
+{{-     if $onePasswordDir }}
+{{-       $socketPath := joinPath $onePasswordDir "t/agent.sock" }}
+{{-       /* Verify the socket file exists */}}
+{{-       if stat $socketPath }}
+{{-         $onePasswordSocket = $socketPath }}
+{{-       end }}
+{{-     end }}
+{{-   end }}
+{{-   /* Allow override via chezmoi data */}}
+{{-   if hasKey . "onePasswordSocket" }}
+{{-     $onePasswordSocket = .onePasswordSocket }}
+{{-   end }}
+Host *
+{{-   if $onePasswordSocket }}
+	IdentityAgent "{{ $onePasswordSocket }}"
+{{-   else }}
+	# 1Password SSH agent socket not found - using default ssh-agent
+	# To configure 1Password SSH agent, set onePasswordSocket in chezmoi data
+	# Or ensure 1Password SSH agent is enabled in 1Password settings
+{{-   end }}
+{{- end }}
