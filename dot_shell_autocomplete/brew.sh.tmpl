@@ -1,5 +1,6 @@
 {{- if lookPath "brew" }}
 if [ -f `brew --prefix`/etc/bash_completion ]; then
-  . `brew --prefix`/etc/bash_completion
+  # Suppress errors from bash completion scripts (e.g., nosort option issues)
+  . `brew --prefix`/etc/bash_completion 2>/dev/null || true
 fi
 {{- end }}
