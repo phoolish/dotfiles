@@ -312,7 +312,8 @@ defaults write com.apple.finder WarnOnEmptyTrash -bool false
 # defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
 # Show the ~/Library folder
-chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library || true
+chflags nohidden ~/Library 2>/dev/null || true
+xattr -d com.apple.FinderInfo ~/Library 2>/dev/null || true
 
 # Show the /Volumes folder
 sudo chflags nohidden /Volumes
@@ -497,7 +498,8 @@ defaults write com.apple.Terminal ShowLineMarks -int 0
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 # Disable Time Machine backups
-sudo tmutil disable
+# Note: Requires Full Disk Access for Terminal in System Settings > Privacy & Security
+sudo tmutil disable 2>/dev/null || true
 
 ###############################################################################
 # Activity Monitor                                                            #
