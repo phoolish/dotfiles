@@ -55,8 +55,8 @@ defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 # Disable the “Are you sure you want to open this application?” dialog
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 
-# Remove duplicates in the “Open With” menu (also see `lscleanup` alias)
-/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
+# Remove duplicates in the "Open With" menu (also see `lscleanup` alias)
+/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -r -domain local -domain system -domain user
 
 # Display ASCII control characters using caret notation in standard text views
 # Try e.g. `cd /tmp; unidecode "\x{0000}" > cc.txt; open -e cc.txt`
@@ -119,10 +119,11 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 # Use scroll gesture with the Ctrl (^) modifier key to zoom
-defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
-defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
+# Note: These require Accessibility permissions in modern macOS
+defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true 2>/dev/null || true
+defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144 2>/dev/null || true
 # Follow the keyboard focus while zoomed in
-defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
+defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true 2>/dev/null || true
 
 # Disable press-and-hold for keys in favor of key repeat
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
@@ -171,7 +172,8 @@ sudo pmset -a displaysleep 10
 sudo pmset -a standbydelay 86400
 
 # Never go into computer sleep mode
-sudo systemsetup -setcomputersleep Off > /dev/null
+# Note: This may conflict with displaysleep setting above
+sudo systemsetup -setcomputersleep Off > /dev/null 2>&1 || true
 
 # Hibernation mode
 # 0: Disable hibernation (speeds up entering sleep mode)
@@ -180,15 +182,14 @@ sudo systemsetup -setcomputersleep Off > /dev/null
 sudo pmset -a hibernatemode 0
 
 SLEEPIMAGE="/private/var/vm/sleepimage"
-# Checks if SLEEPIMAGE exists and has a size greater than 0.
-if [[ -s "$SLEEPIMAGE" ]]; then
-	# Remove the sleep image file to save disk space
-	sudo rm "$SLEEPIMAGE"
-	# Create a zero-byte file instead…
-	sudo touch "$SLEEPIMAGE"
-	# …and make sure it can’t be rewritten
-	sudo chflags uchg "$SLEEPIMAGE"
+# Remove the sleep image file to save disk space (if it exists)
+if [[ -e "$SLEEPIMAGE" ]]; then
+	sudo chflags nouchg "$SLEEPIMAGE" 2>/dev/null || true
+	sudo rm -f "$SLEEPIMAGE"
 fi
+# Create a zero-byte file instead and make sure it can't be rewritten
+sudo touch "$SLEEPIMAGE" 2>/dev/null || true
+sudo chflags uchg "$SLEEPIMAGE" 2>/dev/null || true
 
 ###############################################################################
 # Screen                                                                      #
@@ -311,7 +312,8 @@ defaults write com.apple.finder WarnOnEmptyTrash -bool false
 # defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
 # Show the ~/Library folder
-chflags nohidden ~/Library && xattr -d com.apple.FinderInfo ~/Library || true
+chflags nohidden ~/Library 2>/dev/null || true
+xattr -d com.apple.FinderInfo ~/Library 2>/dev/null || true
 
 # Show the /Volumes folder
 sudo chflags nohidden /Volumes
@@ -496,7 +498,8 @@ defaults write com.apple.Terminal ShowLineMarks -int 0
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 # Disable Time Machine backups
-sudo tmutil disable
+# Note: Requires Full Disk Access for Terminal in System Settings > Privacy & Security
+sudo tmutil disable 2>/dev/null || true
 
 ###############################################################################
 # Activity Monitor                                                            #

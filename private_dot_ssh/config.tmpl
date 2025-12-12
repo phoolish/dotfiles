@@ -16,18 +16,18 @@ To manually specify the socket path, add to ~/.config/chezmoi/chezmoi.toml:
 {{- if eq .chezmoi.os "darwin" }}
 {{-   $onePasswordSocket := "" -}}
 {{/* Try to find the 1Password SSH agent socket dynamically */}}
-{{-   $groupContainers := joinPath .chezmoi.homeDir "Library" "Group Containers" }}
+{{-   $groupContainers := joinPath .chezmoi.homeDir "Library" "Group Containers" -}}
 {{-   if stat $groupContainers -}}
 {{/* Find the directory that matches *.com.1password */}}
 {{-     $findCmd := printf "find '%s' -maxdepth 1 -type d -name '*.com.1password' 2>/dev/null | head -1" $groupContainers }}
 {{-     $onePasswordDir := output "sh" "-c" $findCmd | trim }}
-{{-     if $onePasswordDir }}
+{{-     if $onePasswordDir -}}
 {{-       $socketPath := joinPath $onePasswordDir "t" "agent.sock" -}}
 {{/* Verify the socket file exists */}}
 {{-       if stat $socketPath }}
 {{-         $onePasswordSocket = $socketPath }}
 {{-       end }}
-{{-     end }}
+{{-     end -}}
 {{-   end -}}
 {{/* Allow override via chezmoi data */}}
 {{-   if hasKey . "onePasswordSocket" }}
