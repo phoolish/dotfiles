@@ -172,7 +172,8 @@ sudo pmset -a displaysleep 10
 sudo pmset -a standbydelay 86400
 
 # Never go into computer sleep mode
-sudo systemsetup -setcomputersleep Off > /dev/null
+# Note: This may conflict with displaysleep setting above
+sudo systemsetup -setcomputersleep Off > /dev/null 2>&1 || true
 
 # Hibernation mode
 # 0: Disable hibernation (speeds up entering sleep mode)
@@ -181,15 +182,14 @@ sudo systemsetup -setcomputersleep Off > /dev/null
 sudo pmset -a hibernatemode 0
 
 SLEEPIMAGE="/private/var/vm/sleepimage"
-# Checks if SLEEPIMAGE exists and has a size greater than 0.
-if [[ -s "$SLEEPIMAGE" ]]; then
-	# Remove the sleep image file to save disk space
-	sudo rm "$SLEEPIMAGE"
-	# Create a zero-byte file instead…
-	sudo touch "$SLEEPIMAGE"
-	# …and make sure it can’t be rewritten
-	sudo chflags uchg "$SLEEPIMAGE"
+# Remove the sleep image file to save disk space (if it exists)
+if [[ -e "$SLEEPIMAGE" ]]; then
+	sudo chflags nouchg "$SLEEPIMAGE" 2>/dev/null || true
+	sudo rm -f "$SLEEPIMAGE"
 fi
+# Create a zero-byte file instead and make sure it can't be rewritten
+sudo touch "$SLEEPIMAGE" 2>/dev/null || true
+sudo chflags uchg "$SLEEPIMAGE" 2>/dev/null || true
 
 ###############################################################################
 # Screen                                                                      #
