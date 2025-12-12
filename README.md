@@ -8,6 +8,9 @@ Likely need to run `chezmoi apply` afterwards to apply all changes
 ### Mac Specific
 
 * After initial install, close and reopen terminal to use the bash shell.
+* **Optional Permissions:** Some features require granting permissions in **System Settings > Privacy & Security**:
+  * **Accessibility** - For zoom features (scroll-to-zoom with Ctrl)
+  * **Full Disk Access** - For disabling Time Machine backups
 
 ## SSH Configuration
 
