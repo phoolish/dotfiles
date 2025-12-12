@@ -1,5 +1,4 @@
-{{- /*
-SSH Configuration Template for 1Password SSH Agent
+{{/* SSH Configuration Template for 1Password SSH Agent
 ==================================================
 This template automatically detects the 1Password SSH agent socket path on macOS.
 The socket path contains a Team ID that varies between installations.
@@ -13,7 +12,7 @@ Override:
 To manually specify the socket path, add to ~/.config/chezmoi/chezmoi.toml:
 [data]
   onePasswordSocket = "/path/to/your/agent.sock"
-*/ -}}
+*/}}
 {{- if eq .chezmoi.os "darwin" }}
 {{-   $onePasswordSocket := "" -}}
 {{/* Try to find the 1Password SSH agent socket dynamically */}}
