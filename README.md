@@ -8,6 +8,7 @@ Likely need to run `chezmoi apply` afterwards to apply all changes
 ### Mac Specific
 
 * After initial install, close and reopen terminal to use the bash shell.
+* **Optional:** For accessibility/zoom features (scroll-to-zoom with Ctrl), grant Accessibility permissions to your terminal app in **System Settings > Privacy & Security > Accessibility**
 
 ## SSH Configuration
 
