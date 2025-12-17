@@ -9,6 +9,37 @@ Likely need to run `chezmoi apply` afterwards to apply all changes
 
 * After initial install, close and reopen terminal to use the bash shell.
 
+## Package Management
+
+This dotfiles repo includes a cleaned-up Brewfile with only explicitly-wanted packages (no auto-dependencies).
+
+### Adding New Packages
+
+Use the `dotfiles-brew` helper script to add packages:
+
+```bash
+# Add a formula
+dotfiles-brew add kubectl
+
+# Add a cask
+dotfiles-brew add visual-studio-code
+```
+
+**What it does:**
+- Auto-detects if the package is a formula or cask
+- Adds it alphabetically to the correct section in `dot_Brewfile`
+- Commits the change to git
+- Applies chezmoi changes
+- Installs the package
+
+### Manual Installation
+
+To install all packages from the Brewfile:
+
+```bash
+brew bundle --file=~/.Brewfile
+```
+
 ## SSH Configuration
 
 The SSH configuration uses 1Password as the SSH agent on macOS. The socket path is automatically detected to handle different Team IDs across machines.
