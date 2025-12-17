@@ -1,0 +1,166 @@
+#!/usr/bin/env bash
+#
+# dotfiles-brew - Helper script for managing Brewfile packages
+#
+# Usage:
+#   dotfiles-brew add <package>     Add a package to Brewfile, commit, and install
+#
+
+set -e
+
+COMMAND="${1:-}"
+PACKAGE="${2:-}"
+DOTFILES_DIR="${HOME}/.local/share/chezmoi"
+BREWFILE="${DOTFILES_DIR}/dot_Brewfile"
+
+# Colors for output
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+usage() {
+  echo "Usage: dotfiles-brew add <package>"
+  echo ""
+  echo "Examples:"
+  echo "  dotfiles-brew add kubectl"
+  echo "  dotfiles-brew add visual-studio-code"
+  exit 1
+}
+
+add_package() {
+  local pkg="$1"
+
+  if [ -z "$pkg" ]; then
+    usage
+  fi
+
+  # Detect if it's a formula or cask
+  local pkg_type=""
+  local entry=""
+
+  if brew info --formula "$pkg" &>/dev/null; then
+    pkg_type="formula"
+    entry="brew \"$pkg\""
+  elif brew info --cask "$pkg" &>/dev/null; then
+    pkg_type="cask"
+    # Determine if we need appdir args (check existing patterns)
+    if grep -q 'cask ".*", args: { appdir: "/Applications" }' "$BREWFILE" 2>/dev/null; then
+      # Check if this is an app-type cask
+      if brew info --cask "$pkg" 2>/dev/null | grep -q "==> Artifacts"; then
+        entry="cask \"$pkg\", args: { appdir: \"/Applications\" }"
+      else
+        entry="cask \"$pkg\""
+      fi
+    else
+      entry="cask \"$pkg\""
+    fi
+  else
+    echo -e "${RED}✗${NC} Package '$pkg' not found in Homebrew"
+    echo "  Try: brew search $pkg"
+    exit 1
+  fi
+
+  # Check if already in Brewfile
+  if grep -qE "^(brew|cask) \"${pkg}\"" "$BREWFILE" 2>/dev/null; then
+    echo -e "${YELLOW}⚠${NC} Package '$pkg' is already in Brewfile"
+    exit 0
+  fi
+
+  # Add to Brewfile alphabetically
+  local temp_file=$(mktemp)
+  local section_start_line=""
+  local insert_line=""
+
+  if [ "$pkg_type" = "formula" ]; then
+    # Find the Formulae section and insert alphabetically
+    section_start_line=$(grep -n "^# Formulae" "$BREWFILE" | cut -d: -f1)
+
+    # Get all formula lines with line numbers
+    local last_formula_line=$(awk '/^# Formulae/,/^$/ { if (/^brew /) print NR }' "$BREWFILE" | tail -1)
+
+    # Find the right position alphabetically
+    insert_line=$section_start_line
+    while IFS= read -r line; do
+      if [[ $line =~ ^brew\ \"([^\"]+)\" ]]; then
+        existing_pkg="${BASH_REMATCH[1]}"
+        if [[ "$pkg" < "$existing_pkg" ]]; then
+          break
+        fi
+        insert_line=$((insert_line + 1))
+      elif [[ $line =~ ^# ]]; then
+        # Skip comments
+        insert_line=$((insert_line + 1))
+      elif [[ -z "$line" ]]; then
+        # Stop at empty line (end of section)
+        break
+      else
+        insert_line=$((insert_line + 1))
+      fi
+    done < <(tail -n +$((section_start_line + 1)) "$BREWFILE")
+
+  else
+    # Find the Casks section and insert alphabetically
+    section_start_line=$(grep -n "^# Casks" "$BREWFILE" | cut -d: -f1)
+
+    # Find the right position alphabetically
+    insert_line=$section_start_line
+    while IFS= read -r line; do
+      if [[ $line =~ ^cask\ \"([^\"]+)\" ]]; then
+        existing_pkg="${BASH_REMATCH[1]}"
+        if [[ "$pkg" < "$existing_pkg" ]]; then
+          break
+        fi
+        insert_line=$((insert_line + 1))
+      elif [[ $line =~ ^# ]]; then
+        # Skip comments
+        insert_line=$((insert_line + 1))
+      elif [[ -z "$line" ]]; then
+        # Stop at empty line (end of file)
+        break
+      else
+        insert_line=$((insert_line + 1))
+      fi
+    done < <(tail -n +$((section_start_line + 1)) "$BREWFILE")
+  fi
+
+  # Insert the new entry
+  awk -v line="$insert_line" -v entry="$entry" 'NR==line {print entry} {print}' "$BREWFILE" > "$temp_file"
+  mv "$temp_file" "$BREWFILE"
+
+  echo -e "${GREEN}✓${NC} Added '$pkg' to Brewfile"
+
+  # Commit the change
+  cd "$DOTFILES_DIR"
+  git add dot_Brewfile
+  git commit -m "Add $pkg to Brewfile" --quiet
+  echo -e "${GREEN}✓${NC} Committed change to dotfiles"
+
+  # Apply chezmoi changes (if chezmoi is available)
+  if command -v chezmoi &>/dev/null; then
+    chezmoi apply --quiet
+    echo -e "${GREEN}✓${NC} Applied changes with chezmoi"
+  fi
+
+  # Install the package
+  echo ""
+  echo "Installing $pkg..."
+  if [ "$pkg_type" = "formula" ]; then
+    brew install "$pkg"
+  else
+    brew install --cask "$pkg"
+  fi
+
+  echo ""
+  echo -e "${GREEN}✓${NC} Successfully added and installed '$pkg'"
+}
+
+# Main command dispatcher
+case "$COMMAND" in
+  add)
+    add_package "$PACKAGE"
+    ;;
+  *)
+    usage
+    ;;
+esac
