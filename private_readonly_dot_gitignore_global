@@ -48,3 +48,6 @@ Thumbs.db
 
 # asdf
 .tool-versions
+
+# claude folder
+.claude
