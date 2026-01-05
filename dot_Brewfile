@@ -193,3 +193,4 @@ cask "vlc", args: { appdir: "/Applications" }
 cask "xquartz"
 # Video communication and virtual meeting platform
 cask "zoom"
+cask "claude-code"
